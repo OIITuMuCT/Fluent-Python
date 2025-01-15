@@ -1,5 +1,21 @@
-fruits = ["grape", "raspberry", "apple", "banana"]
-print(sorted(fruits))
-print(fruits)
-print(sorted(fruits)==fruits)
-print(sorted(fruits, key=len))
+#  Пример 2.20. Обращение с 6 байтами в памяти как с представлениями матриц 1×6, 2×3 или 3×2
+
+from array import array
+octets = array('B', range(6))   # 1
+m1 = memoryview(octets)         # 2
+print(m1.tolist())
+m2 = m1.cast('B', [2, 3])       # 3
+print(m2.tolist())
+m3 = m1.cast('B', [3, 2])       # 4
+print(m3.tolist())
+m2[1,1] = 22                    # 5
+m3[1,1] = 33                    # 6
+print(octets)                   # 7
+
+# 1 Построить массив из шести байт (код типа "В")
+# 2 Построить по этому массиву memoryview по предыдущему, но с 2 строками и 3 столбцами.
+# 3 Построить новое memoryview, по предыдущему, но с 2 строками и 3 столбцами.
+# 4 Еще одно memoryview, на этот раз с 3 строками и 2 столбцами.
+# 5 Перезаписать байт в строке 1, столбце 1 представления m2 значением 22.
+# 6 Перезаписать байт в строке 1, столбце 1 представления m3 значением 33.
+# 7
